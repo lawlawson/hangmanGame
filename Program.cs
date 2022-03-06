@@ -4,6 +4,8 @@ namespace Hangman
 {
     class Program
     {
+        static string name;
+
         static void Main(string[] args)
         {
             StartGame();
@@ -20,6 +22,7 @@ namespace Hangman
         static void AskForUsersName()
         {
             Console.WriteLine("Please enter your name...");
+            name = Console.ReadLine();
         }
 
         private static void PlayGame()
@@ -42,7 +45,7 @@ namespace Hangman
 
         private static void EndGame()
         {
-            Console.WriteLine("END GAME!");
+            Console.WriteLine($"Thank you for playing {name}");
         }
 
     }
