@@ -5,6 +5,7 @@ namespace Hangman
     class Program
     {
         static string name;
+        static int numberOfGuesses;
 
         static void Main(string[] args)
         {
@@ -22,7 +23,16 @@ namespace Hangman
         static void AskForUsersName()
         {
             Console.WriteLine("Please enter your name...");
-            name = Console.ReadLine();
+            string input = Console.ReadLine();
+
+            if(input.Length >= 2)
+            {
+                name = input;
+            }
+            else
+            {
+                AskForUsersName();
+            }
         }
 
         private static void PlayGame()
@@ -35,6 +45,7 @@ namespace Hangman
         static void AskForLetter()
         {
             Console.WriteLine("Asking for letter...");
+            numberOfGuesses++;
         }
 
         static void DisplayMaskedWord()
@@ -46,6 +57,7 @@ namespace Hangman
         private static void EndGame()
         {
             Console.WriteLine($"Thank you for playing {name}");
+            Console.WriteLine($"Guesses: {numberOfGuesses}");
         }
 
     }
