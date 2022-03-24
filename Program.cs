@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Hangman
 {
@@ -7,7 +8,7 @@ namespace Hangman
         static string correctWord = "hangman";
         static char[] letters;
         static string name;
-        static int numberOfGuesses;
+        static List<char> guessedLetters = new List<char>();
 
         static void Main(string[] args)
         {
@@ -77,9 +78,12 @@ namespace Hangman
 
             } while (input.Length != 1);
 
-            numberOfGuesses++;
+            var letter = input[0];
 
-            return input[0];
+            if (!guessedLetters.Contains(letter))
+                guessedLetters.Add(letter);
+
+            return letter;
         }
 
         static void DisplayMaskedWord()
@@ -95,7 +99,7 @@ namespace Hangman
         private static void EndGame()
         {
             Console.WriteLine($"Thank you for playing {name}");
-            Console.WriteLine($"Guesses: {numberOfGuesses}");
+            Console.WriteLine($"Guesses: {guessedLetters.Count}");
         }
 
     }
