@@ -7,8 +7,8 @@ namespace Hangman
     {
         static string correctWord = "hangman";
         static char[] letters;
-        static string name;
-        static List<char> guessedLetters = new List<char>();
+        static Player player;
+        
 
         static void Main(string[] args)
         {
@@ -35,7 +35,7 @@ namespace Hangman
 
             if(input.Length >= 2)
             {
-                name = input;
+                player = new Player(input);     
             }
             else
             {
@@ -63,7 +63,11 @@ namespace Hangman
             for (int i = 0; i < correctWord.Length; i++)
             {
                 if (guessedLetter == correctWord[i])
+                {
                     letters[i] = guessedLetter;
+                    player.score++;
+                }
+                    
             }
         }
 
@@ -80,8 +84,8 @@ namespace Hangman
 
             var letter = input[0];
 
-            if (!guessedLetters.Contains(letter))
-                guessedLetters.Add(letter);
+            if (!player.guessedLetters.Contains(letter))
+                player.guessedLetters.Add(letter);
 
             return letter;
         }
@@ -98,9 +102,9 @@ namespace Hangman
 
         private static void EndGame()
         {
-            Console.WriteLine($"Thank you for playing {name}");
-            Console.WriteLine($"Guesses: {guessedLetters.Count}");
-        }
+            Console.WriteLine($"Thank you for playing {player.name}");
+            Console.WriteLine($"Guesses: {player.guessedLetters.Count} Score: {player.score}");
+        }   
 
     }
 }
