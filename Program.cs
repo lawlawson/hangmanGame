@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Hangman
 {
     class Program
     {
-        static string correctWord = "hangman";
+        static string correctWord;
         static char[] letters;
         static Player player;
         
@@ -19,8 +20,12 @@ namespace Hangman
 
         private static void StartGame()
         {
-            letters = new char[correctWord.Length];
+            var words = File.ReadAllLines(@"/Users/lawrencenarh-lawson/Documents/Words.rtf");
 
+            Random random = new Random();
+            correctWord = words[random.Next(0, words.Length)];
+            
+            letters = new char[correctWord.Length];
             for (int i = 0; i < correctWord.Length; i++)
             
                 letters[i] = '_';
@@ -102,7 +107,8 @@ namespace Hangman
 
         private static void EndGame()
         {
-            Console.WriteLine($"Thank you for playing {player.Name}");
+            Console.WriteLine($"Congrats!");
+            Console.WriteLine($"Thank you for playing {player.Name}!");
             Console.WriteLine($"Guesses: {player.GuessedLetters.Count} Score: {player.Score}");
         }   
 
