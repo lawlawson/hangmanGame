@@ -13,14 +13,31 @@ namespace Hangman
 
         static void Main(string[] args)
         {
-            StartGame();
-            PlayGame();
-            EndGame();
+            try
+            {
+                StartGame();
+                PlayGame();
+                EndGame();
+            }
+            catch
+            {
+                Console.WriteLine("Oops, something went wrong!");
+            }
+
         }
 
         private static void StartGame()
         {
-            var words = File.ReadAllLines(@"/Users/lawrencenarh-lawson/Documents/Words.rtf");
+            string[] words;
+            try
+            {
+                words = File.ReadAllLines(@"/Users/lawrencenarh-lawson/Documents/Words.rtf");
+            }
+            catch
+            {
+               words = new string[] { "tree", "dog", "cat"};
+            }
+            
 
             Random random = new Random();
             correctWord = words[random.Next(0, words.Length)];
